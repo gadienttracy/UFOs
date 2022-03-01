@@ -14,3 +14,21 @@ function buildTable(data){
         }
     );
    });
+
+//create a button to filter the table by date
+function handleClick(){
+    //look for date values and grab info and hold in the date variable.
+    let date = d3.select("#datetime").property("value");
+    let filteredData = tableData;
+    //check to see if a date was entered and filter the data using that date.
+    if (date){
+        //apply 'filter' method that will match the datetime value to the filtered date value
+        filteredData = filteredData.filter(row => row.datetime === date);
+    }
+//rebuild the table using the filtered data @note if no date was entered, then filteredData will just be the original tableData.
+    buildTable(filteredData);
+}
+//Attach an event to listen for the form button
+d3.selectAll("#filter-btn").on("click", handleClick);
+//buildTable(tableData)
+buildTable(tableData);
